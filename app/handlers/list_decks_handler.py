@@ -36,13 +36,15 @@ async def list_decks_handler(message: Message, conn: Connection, state: FSMConte
     if not decks:
         await message.answer("У вас нет ни одной колоды", reply_markup=keyboard)
     else:
-        buttons = [
-            [KeyboardButton(text=deck["deck_name"]) for deck in decks],
+        buttons = [ 
         [
           KeyboardButton(text="Создать колоду"),
           KeyboardButton(text="У меня есть инвайт")
         ]]
-    
+        
+        for deck in decks:
+            buttons.insert(0, [KeyboardButton(text=deck["deck_name"])])
+       
         keyboard = ReplyKeyboardMarkup(
             keyboard=buttons,
             resize_keyboard=True

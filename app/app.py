@@ -8,12 +8,14 @@ from aiogram.types import Message
 from aiogram.fsm.storage.memory import MemoryStorage
 from db import DbPoolMiddleware, create_db_pool
 from empty_state_keyboard import empty_state_keyboard
+
 import handlers.create_deck_handler
 import handlers.invite_handler
 import handlers.learning_handler
 import handlers.list_decks_handler
 import handlers.select_deck_handler
 import handlers.adding_cards_handler
+import handlers.help_handler
 
 TOKEN = getenv("TG_TOKEN")
 dp = Dispatcher(storage=MemoryStorage())
@@ -37,7 +39,8 @@ async def main() -> None:
         handlers.learning_handler.router,
         handlers.list_decks_handler.router,
         handlers.select_deck_handler.router,
-        handlers.adding_cards_handler.router
+        handlers.adding_cards_handler.router,
+        handlers.help_handler.router
     )
 
     db_pool = await create_db_pool()

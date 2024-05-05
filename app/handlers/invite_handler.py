@@ -20,7 +20,7 @@ async def accept_invite_handler(message: Message, conn: Connection, state: FSMCo
     user_id = message.chat.id
     
     try:
-        await conn.execute("INSERT INTO user_deck (user_id, deck_id) VALUES ($1, $2)", 
+        await conn.execute("INSERT INTO user_decks (user_id, deck_id) VALUES ($1, $2)", 
                        user_id, deck_id)
     except:
         await message.reply("Вы уже изучаете эту колоду!", reply_markup=empty_state_keyboard())
@@ -28,3 +28,4 @@ async def accept_invite_handler(message: Message, conn: Connection, state: FSMCo
         return
     
     await message.reply(f"Колода {deck_name} добавлена для изучения!")
+    await state.clear()

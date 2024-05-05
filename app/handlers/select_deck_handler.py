@@ -62,7 +62,7 @@ async def select_deck_handler(message: Message, state: FSMContext, conn: Connect
     )
     
     if not deck_row:
-        await message.answer("Некорректная колода", reply_markup=empty_state_keyboard())
+        await message.answer("Колода с таким именем не найдена", reply_markup=empty_state_keyboard())
         return
     
     deck_id = deck_row[0]["deck_id"]
