@@ -3,8 +3,9 @@ from aiogram.utils.formatting import Text, Bold, Italic
 from aiogram import Router
 from asyncpg.connection import Connection
 from aiogram.fsm.context import FSMContext
+from aiogram.filters import Command
 from state import AnkiState
-from handlers import learning_handler
+from handlers import learning_handler, help_handler as help
 from empty_state_keyboard import empty_state_keyboard
 
 
@@ -15,6 +16,10 @@ __add_new_cards = "Добавить карточек"
 __cancel_command = "Отменить"
 __create_new_deck = "Создать колоду"
 __handle_invite_code = "У меня есть инвайт"
+
+@router.message(Command("help"))
+async def help_handler(message: Message) -> None:
+    await help.help_handler(message)
 
 @router.message(AnkiState.confirm_deck_selection)
 async def confirm_deck_selection_handler(message: Message, state: FSMContext, conn: Connection) -> None:
